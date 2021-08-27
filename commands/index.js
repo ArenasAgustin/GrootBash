@@ -10,9 +10,9 @@ let helpList = [];
 const cmd = {
 	cat: (arg) => {
     	fs.readFile(__dirname + `/text/${arg}.txt`, 'utf8', (err, data) => {
-		 	if(err) throw err;
+		 	if(err) print(err);
 
-			print(`${data}`);
+			else print(`${data}`);
 			printPromp();
 		})
     },
@@ -20,9 +20,9 @@ const cmd = {
     count5s: () => {
     	for(i = 5; i > 0; i--){
     		setTimeout(() => {fs.readFile(__dirname + `/text/counter/${i}.txt`, 'utf8', (err, data) => {
-			if(err) throw err;
+			if(err) print(err);
 
-			print(`${data}`);
+			else print(`${data}`);
 			if(i === 1) printPromp();
 		})}, 1000);
     	}
@@ -72,10 +72,11 @@ const cmd = {
     
     head: (arg) => {
     	fs.readFile(__dirname + `/text/${arg}.txt`, 'utf8', (err, data) => {
-		 	if(err) throw err;
-		 	let aux = data.split('\n').slice(0, 6);
+		let aux = data.split('\n').slice(0, 6); 	
+		
+		if(err) print(err);
 
-	    	print(`\n\n${aux.join('\n')}\n`);
+	    	else print(`\n\n${aux.join('\n')}\n`);
 	    	printPromp();
     	})
     },
@@ -87,19 +88,21 @@ const cmd = {
 
     ls: () => {
     	fs.readdir('.', (err, files) => {
-			if (err) throw err;
+			if (err) print(err);
 
-			print(`\n\t${files.join('\n\t')}\n`);
+			else print(`\n\t${files.join('\n\t')}\n`);
 			printPromp();
 		});
     },
     
     mrTurnerSay: (arg) => {
     	fs.readFile(__dirname + '/text/mrturner.txt', 'utf8', (err, data) => {
-		 	if(err) throw err;
+		 	if(err) print(err);
 
-	    	print(`\n\n\t\t\t\t\t\t\t${arg}\n`);
-			print(`${data}\n`);
+			else{
+				print(`\n\n\t\t\t\t\t\t\t${arg}\n`);
+				print(`${data}\n`);
+			}
 			printPromp();
     	})
     },
@@ -111,10 +114,11 @@ const cmd = {
 
     tail: (arg) => {
     	fs.readFile(__dirname + `/text/${arg}.txt`, 'utf8', (err, data) => {
-		 	if(err) throw err;
-		 	let aux = data.split('\n').slice(-6);
-
-	    	print(`\n\n${aux.join('\n')}\n`);
+		let aux = data.split('\n').slice(-6); 
+		
+		if(err) print(err);
+		 	
+	    	else print(`\n\n${aux.join('\n')}\n`);
 	    	printPromp();
     	})
     },
