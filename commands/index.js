@@ -7,15 +7,6 @@ const printPromp = () => print('\nI´m Goot > ');
 
 let helpList = [];
 
-const timer = (seg) => {
-	fs.readFile(__dirname + `/text/counter/${seg}.txt`, 'utf8', (err, data) => {
-	 	if(err) throw err;
-
-		print(`${data}`);
-		if(seg === 1) printPromp();
-	})
-}
-
 const cmd = {
 	cat: (arg) => {
     	fs.readFile(__dirname + `/text/${arg}.txt`, 'utf8', (err, data) => {
@@ -28,7 +19,12 @@ const cmd = {
 
     count5s: () => {
     	for(i = 5; i > 0; i--){
-    		setTimeout(timer(i), 1000);
+    		setTimeout(() => {fs.readFile(__dirname + `/text/counter/${i}.txt`, 'utf8', (err, data) => {
+			if(err) throw err;
+
+			print(`${data}`);
+			if(i === 1) printPromp();
+		})}, 1000);
     	}
     },
 
