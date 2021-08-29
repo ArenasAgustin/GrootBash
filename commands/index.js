@@ -1,55 +1,53 @@
 const fs = require('fs'); //npm i fs
 const cowsay = require('cowsay'); //npm i cowsay
 const axios = require('axios'); //npm i axios
+var Promise = require('bluebird');
 
-const print = (arg) => process.stdout.write(arg);
-const printConPromp = (arg) => {
+let helpList = [];
+
+const print = arg => process.stdout.write(arg);
+const printConPromp = arg => {
 	print(arg);
 	print('\nI´m Groot > ');
 };
 
-let helpList = [];
-
-const readFile = function (filename, callback) {
-	fs.readFile(filename, function (err, buffer) {
-		if (err) callback(err);
+const readFile = (filename, callback) => {
+	fs.readFile(filename, (err, buffer) => {
+		if(err) callback(err);
 		else callback(null, buffer.toString());
 	});
 };
 
-const reader = function (filename) {
-	return new Promise(function (resolve, reject) {
-		readFile(filename, function (err, str) {
-			if (err) reject(err);
+const reader = filename => {
+	return new Promise((resolve, reject) => {
+		readFile(filename, (err, str) => {
+			if(err) reject(err);
 			else resolve(str);
 		});
 	});
 };
 
 const cmd = {
-	cat: (arg) => {
+	cat: arg => {
 		reader(`${__dirname}/text/${arg}.txt`)
-			.then((data) => printConPromp(`${data}`))
-			.catch((err) => printConPromp(`${err}`))
+			.then(data => printConPromp(`${data}`))
+			.catch(err => printConPromp(`${err}`))
     },
 
-    count5s: () => {
-    	for(i = 5; i > 0; i--){
-    		setTimeout(() => {
-    			reader(`${__dirname}/text/counter/${i}.txt`)
-					.then((data) => {
-						if(i > 1) print(`${data}`);
+    countseg: seg => {
+    	if(seg < 0) printConPromp('Only positive numbers');
 
-						else printConPromp(`${data}`);
-					})
-					.catch((err) => {
-						printConPromp(`${err}`);
-					})
-			}, 1000);
-    	}
+    	do{
+    		setTimeout(s => {
+    			print(`\n${s}s`);
+    			seg--;
+    		}, 1000);
+    	}while(seg > 0)
+
+    	printConPromp('\n0s')
     },
 
-    cowsay: (arg) => {  
+    cowsay: arg => {  
     	printConPromp(cowsay.say({
     		text : `${arg}`,
     		e : 'oO',
@@ -57,7 +55,7 @@ const cmd = {
     	}));
     },
 
-    cowthink: (arg) => {  
+    cowthink: arg => {  
     	printConPromp(cowsay.think({
     		text : `${arg}`,
     		e : '==',
@@ -65,7 +63,7 @@ const cmd = {
     	}));
     },
 
-    curl: function(arg) {
+    curl: arg => {
         axios(arg[0])
 	        .then(res => printConPromp(res.data.toString()))
 	        .catch(err => printConPromp(err));
@@ -75,18 +73,18 @@ const cmd = {
     	printConPromp(`\t${Date()}`);
     },
 
-    echo: (arg) => {
+    echo: arg => {
     	printConPromp(`\t${arg.join(' ')}`);
     },
     
-    head: (arg) => {
+    head: arg => {
     	reader(`${__dirname}/text/${arg}.txt`)
-			.then((data) => {
+			.then(data => {
 				let aux = data.split('\n').slice(0, 6);
 
 				printConPromp(`\n\n${aux.join('\n')}\n`);
 			})
-			.catch((err) => printConPromp(`${err}`));
+			.catch(err => printConPromp(`${err}`));
     },
 
 	help: () => {
@@ -101,32 +99,22 @@ const cmd = {
 		});
     },
     
-    mrTurnerSay: (arg) => {
+    mts: arg => {
     	reader(`${__dirname}/text/mrturner.txt`)
-			.then((data) => {
+			.then(data => {
 				let aux = data.split('\n').slice(-6);
 
 				print(`\n\n\t\t\t\t\t\t\t${arg}\n`);
 				printConPromp(`${data}\n`);
 			})
-			.catch((err) => printConPromp(`${err}`));
+			.catch(err => printConPromp(`${err}`));
     },
 
     pwd: () => {
     	printConPromp(`\t${process.cwd()}`);
 	},
 
-    tail: (arg) => {
-    	reader(`${__dirname}/text/${arg}.txt`)
-			.then((data) => {
-				let aux = data.split('\n').slice(-6);
-
-				printConPromp(`\n\n${aux.join('\n')}\n`);
-			})
-			.catch((err) => printConPromp(`${err}`));
-    },
-
-    randomsay: (arg) => {  
+    randomsay: arg => {  
     	printConPromp(cowsay.say({
     		text : `${arg}`,
     		e: '^^',
@@ -134,12 +122,36 @@ const cmd = {
     	}));
     },
 
-    randomthink: (arg) => {  
+    randomthink: arg => {  
     	printConPromp(cowsay.think({
     		text : `${arg}`,
     		e: '^^',
     		r: true,
     	}));
+    },
+
+    sort: () => {},
+
+    tail: arg => {
+    	reader(`${__dirname}/text/${arg}.txt`)
+			.then(data => {
+				let aux = data.split('\n').slice(-6);
+
+				printConPromp(`\n\n${aux.join('\n')}\n`);
+			})
+			.catch(err => printConPromp(`${err}`));
+    },
+
+    uniq: () => {},
+
+    wc: arg => {
+    	reader(`${__dirname}/text/${arg}.txt`)
+			.then(data => {
+				let aux = data.split('\n');
+
+				printConPromp(`\n\nlines: ${aux.length}\n`);
+			})
+			.catch(err => printConPromp(`${err}`));
     },
 }
 
