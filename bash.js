@@ -1,6 +1,9 @@
 const commands = require('./commands/index.js');
 
-process.stdout.write('I´m Goot > ');
+const print = (arg) => process.stdout.write(arg);
+
+print('Welcome to the Groot bash');
+print('\nI´m Groot > ');
 
 process.stdin.on('data', function (data) {
   let arg = data.toString().trim().split(' ');
@@ -10,7 +13,7 @@ process.stdin.on('data', function (data) {
     commands[cmd](arg);  
   }
   else {
-    process.stdout.write('\nComando no bálido, lista de comandos help');
-    process.stdout.write('\nI´m Goot > ');
+    print(`"${cmd}" is not recognized as an internal command, \nlist of commands with "help" command\n`);
+    print('\nI´m Groot > ');
   }
 });
