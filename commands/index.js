@@ -34,19 +34,6 @@ const cmd = {
 			.catch(err => printConPromp(`${err}`))
     },
 
-    countseg: seg => {
-    	if(seg < 0) printConPromp('Only positive numbers');
-
-    	do{
-    		setTimeout(s => {
-    			print(`\n${s}s`);
-    			seg--;
-    		}, 1000);
-    	}while(seg > 0)
-
-    	printConPromp('\n0s')
-    },
-
     cowsay: arg => {  
     	printConPromp(cowsay.say({
     		text : `${arg}`,
@@ -130,7 +117,7 @@ const cmd = {
     	}));
     },
 
-    sort: () => {},
+    sort: () => printConPromp(`\n\nComing soon\n`),
 
     tail: arg => {
     	reader(`${__dirname}/text/${arg}.txt`)
@@ -142,7 +129,7 @@ const cmd = {
 			.catch(err => printConPromp(`${err}`));
     },
 
-    uniq: () => {},
+    uniq: () => printConPromp(`\n\nComing soon\n`),
 
     wc: arg => {
     	reader(`${__dirname}/text/${arg}.txt`)
