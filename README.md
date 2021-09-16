@@ -75,9 +75,17 @@ Implementa el modulo cowsay de npm. Recibe como parametro un texto que le manda 
 
 Muestra las últimas líneas de un archivo. Acepta ademas del nombre del archivo un numero para imprimir esa cantidad de lineas. Si no se le pasa este parametro imprime las ultimas 6 lineas. Ej: `tail textPrueba 7`
 
+### `toBin`
+
+Convierte un String a binario, siempre y cuando tenga un '_' en lugar de los espacios. Ej: `toBin Hello_word`.
+
+### `toChar`
+
+Convierte un String de binarios a Texto, siempre y cuando tenga un '_' binario en lugar de los espacios en binario. Ej: `toChar 01001000011001010110110001101100011011110101111101010111011011110111001001100100`.
+
 ### `wc`
 
-`wc` simplemente devuelve el número de líneas del archivo. Ej: `head textPrueba`.
+`wc` simplemente devuelve el número de líneas del archivo el conteo de palabras y caracteres de un archivo. Ej: `wc textPrueba`.
 
 ## Proximamente
 
@@ -88,7 +96,3 @@ Devolvera el archivo ordenado lexicográficamente por línea. Lo reescribe al ar
 ### `uniq`
 
 Si una línea en un archivo es la misma que la línea de arriba, la saca del resultado. Lo reescribe al archivo si le mandas como parametro -m.
-
-### `wc`
-
-Imprimirá el conteo de palabras y caracteres de un archivo.

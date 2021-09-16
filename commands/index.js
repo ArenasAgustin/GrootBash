@@ -9,16 +9,18 @@ const {
   reader,
   timer,
   promisifiedtimer,
-  counter
+  counter,
+  maxValue
 } = require ('./utils.js')
 
 let helpList = [];
 
 const cmd = {
-	cat: arg => {
-	reader(`${__dirname}/text/${arg}.txt`)
-		.then(data => printConPromp(`${data}`))
-		.catch(err => printConPromp(`${err}`))
+	cat:async arg => {
+		const data = await reader(`${__dirname}/text/${arg[0]}.txt`)
+			
+		try{ printConPromp(`${data}`) }
+		catch(err){ printConPromp(`${err}`) }
   },
 
   count: seg => {
@@ -57,15 +59,16 @@ const cmd = {
   	printConPromp(`\t${arg.join(' ')}`);
   },
     
-  head: arg => {
-  	reader(`${__dirname}/text/${arg[0]}.txt`)
-		.then(data => {
+  head:async arg => {
+  	let data = await reader(`${__dirname}/text/${arg[0]}.txt`)
+		try{ 
 			const lines = arg[1] ? parseInt(arg[1]) : 6;
 			let aux = data.split('\n').slice(0, lines);
 
-			printConPromp(`\n\n${aux.join('\n')}\n`);
-		})
-		.catch(err => printConPromp(`${err}`));
+			printConPromp(`\n${aux.join('\n')}\n`);
+		}
+
+		catch(err){ printConPromp(`${err}`) }
   },
 
 	help: () => {
@@ -80,15 +83,16 @@ const cmd = {
 	});
   },
   
-  mts: arg => {
-  	reader(`${__dirname}/text/mrturner.txt`)
-		.then(data => {
+  mts:async arg => {
+  	let data = await reader(`${__dirname}/text/mrturner.txt`)
+		try{ 
 			let aux = data.split('\n').slice(-6);
 
-			print(`\n\n\t\t\t\t\t\t\t${arg}\n`);
+			print(`\n\t\t\t\t\t\t\t${arg}\n`);
 			printConPromp(`${data}\n`);
-		})
-		.catch(err => printConPromp(`${err}`));
+		}
+
+		catch(err){ printConPromp(`${err}`) }
   },
 
   pwd: () => {
@@ -111,29 +115,51 @@ const cmd = {
   	})}\n`);
   },
 
-  sort: () => printConPromp(`\n\nComing soon\n`),
+  sort:async arg => {
+		const data = await reader(`${__dirname}/text/${arg[0]}.txt`)
+		try{
+			printConPromp(`\n${data.split('\n').sort().join('\n')}\n`)
+		}
+		catch(err){ printConPromp(`${err}`) }
+  },
 
-  tail: arg => {
-  	reader(`${__dirname}/text/${arg[0]}.txt`)
-		.then(data => {
+  tail:async arg => {
+  	let data = await reader(`${__dirname}/text/${arg[0]}.txt`)
+		try{ 
 			const lines = arg[1] ? parseInt(arg[1]) : 6;
 			let aux = data.split('\n').slice(-lines);
 
-			printConPromp(`\n\n${aux.join('\n')}\n`);
-		})
-		.catch(err => printConPromp(`${err}`));
+			printConPromp(`\n${aux.join('\n')}\n`);
+		}
+
+		catch(err){ printConPromp(`${err}`) }
   },
 
-  uniq: () => printConPromp(`\n\nComing soon\n`),
+  toBin: arg => {
+  	try{ printConPromp(`\n\t${arg[0].toBinFunc()}\n`); }
+  	catch(err){ printConPromp(`${err}`); }
+  },
 
-  wc: arg => {
-  	reader(`${__dirname}/text/${arg}.txt`)
-		.then(data => {
-			let aux = data.split('\n');
+  toChar: arg => {
+  	try{ printConPromp(`\n\t${arg[0].toCharFunc(2)}\n`); }
+  	catch(err){ printConPromp(`${err}`); }
+  },
 
-			printConPromp(`\n\nlines: ${aux.length}\n`);
-		})
-		.catch(err => printConPromp(`${err}`));
+  uniq: () => printConPromp(`\nComing soon\n`),
+
+  wc:async arg => {
+  	let data = await reader(`${__dirname}/text/${arg[0]}.txt`)
+		try{ 
+			let lines = data.split('\n');
+			let words = lines.join(' ').split(' ');
+			let characters = words.join('').split('');
+
+			print(`\n\tlines: ${lines.length}\n`);
+			print(`\twords: ${words.length}\n`);
+			printConPromp(`\tcharacters: ${characters.length}\n`);
+		}
+
+		catch(err){ printConPromp(`${err}`) }
   },
 }
 

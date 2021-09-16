@@ -52,6 +52,49 @@ const counter = async seg => {
   printConPromp('\ndone\n')
 };
 
+const binarios = (x, pos) => {
+  if (pos > 0) return binario(parseInt(x / 2), pos - 1) + (x % 2).toString();
+  else return (x % 2);
+};
+
+String.prototype.toBinFunc = function() {
+
+  function binario(x, pos) {
+    if (pos > 0) return binario(parseInt(x / 2), pos - 1) + (x % 2).toString();
+    else return (x % 2);
+  }
+
+  var cadena = "";
+
+  for (i = 0, total = this.length; i < total; i ++){
+    cadena += binario(this.charCodeAt(i), 7);
+  }
+
+  return cadena.trim();
+}
+
+String.prototype.toCharFunc = function(fromBase) {
+    
+    var cadena = "", primero = 0, ultimo = 1;
+
+    while(ultimo <= this.length){
+        var convertido = this.substring(primero, ultimo);
+        convertido = parseInt(convertido, fromBase);
+
+        while(Number(convertido) < 65 || Number(convertido) > 122){
+            ultimo++;
+            convertido = this.substring(primero, ultimo);
+            convertido = parseInt(convertido, fromBase);
+        }
+      
+        cadena  += String.fromCharCode(convertido);
+        
+        primero = ultimo; ultimo++;
+    }
+    
+    return cadena;
+}
+
 module.exports = {
   print,
   printConPromp,
