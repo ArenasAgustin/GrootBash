@@ -71,6 +71,10 @@ Implementa el modulo cowsay de npm. Recibe como parametro un texto que le manda 
 
 Implementa el modulo cowsay de npm. Recibe como parametro un texto que le manda a cowsay para imprimir un cowthink random.
 
+### `sort`
+
+Devolvera el archivo ordenado lexicográficamente por línea
+
 ### `tail`
 
 Muestra las últimas líneas de un archivo. Acepta ademas del nombre del archivo un numero para imprimir esa cantidad de lineas. Si no se le pasa este parametro imprime las ultimas 6 lineas. Ej: `tail textPrueba 7`
@@ -91,7 +95,7 @@ Convierte un String de binarios a Texto, siempre y cuando tenga un '_' binario e
 
 ### `sort`
 
-Devolvera el archivo ordenado lexicográficamente por línea. Lo reescribe al archivo si le mandas como parametro -m.
+Lo reescribirá al archivo si le mandas como parametro -m.
 
 ### `uniq`
 
