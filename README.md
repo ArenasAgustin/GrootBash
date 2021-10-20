@@ -4,19 +4,6 @@
 
 Este proyecto de escribir mi propia shell utilizada para implementar funcionalidades y herramientas que voy aprendiendo. Inspirado en Bash.
 
-## Filosofía UNIX
-
-La 'filosofía Unix' fue originada con las reflexiones de Ken Thompson sobre cómo diseñar un sistema operativo pequeño, capaz y con una interfaz de servicio limpia.
-
-Doug McIlroy, el inventor de los Unix pipes y uno de los fundadores de la tradición Unix, decía:
-
-    Lográ que cada programa haga una cosa bien. Para hacer un nuevo trabajo, creá un nuevo programa antes que complicar uno viejo agregando nuevas funciones.
-    Esperá que el output de cada programa se convierta en el input de otro todavía desconocido. No llenes el output de información extraña. Evitá los formatos de entrada en columnas o binarios. No insistas con inputs interactivos.
-    Diseñá y creá software, incluso sistemas operativos, que sean probados tempranamente (idealmente dentro de semanas). No dudes en descartar las partes torpes y reconstruirlas.
-    Usá herramientas para aligerar la tarea de programar, incluso si tenés que desviarte para construirlas. Descartá algunas de ellas después de haberlas usado.
-
-[Acá](https://www.youtube.com/watch?v=tc4ROCJYbm0) hay un video de los 70's para profundizar más en la filosofía Unix.
-
 ###  `cat`
 
 Muestra todo el contenido de un archivo, ej: `cat batman`.
